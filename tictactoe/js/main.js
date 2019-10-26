@@ -31,6 +31,7 @@ function init() {
     clearGUIBoard();
     //set playing to true
     stillPlaying = 0;
+    reset.innerText = 'Click A Circle To Begin..'
 }
 
 function clearGUIBoard() {
@@ -50,7 +51,8 @@ function clearBoard() {
 
 function render() {
     if (winner) {
-        title.innerText = `CONGRATS! PLAYER ${turn} YOU WON!`
+        title.innerText = `CONGRATS! PLAYER "${turn}" YOU WON!`
+        reset.innerText = 'PLAY AGAIN?'
     }
 }
 //if the user clicks the screen and the target is not a "div" tag or if the user clicks on the X or O already places on the screen, return out of function..
@@ -62,6 +64,7 @@ function handleClick(evt) {
     let evtId = evt.target.id;
     let column = evtId[3];
     let row = evtId[1];
+    reset.innerText = null;
     //iterate through each cell element and check to see if the item that the user clicked is the correct element. if so, and there is a winner or the board is full, return.  otherwise assign the inner HTML to a char 'X' or 'O', also se the value of the row and column to the 1 or -1 that defines the user ID, and run the gameLogic function.
     cells.forEach((e) => {
         if (evtId === e.id) {
@@ -117,6 +120,7 @@ function gameLogic() {
                 if (!winner && stillPlaying === 9) {
 
                     title.innerText = "ITS A TIE!"
+                    reset.innerText = 'PLAY AGAIN?'
                 }
             }
         }

@@ -26,7 +26,7 @@
     grid-template-columns: repeat(3, 10vmin);
     grid-template-rows: repeat(3, 10vmin);
     grid-gap: 1vmin;
-    background: 
+    background: transparent
   }
   
   section.grid-container div {
@@ -105,11 +105,11 @@ div {
     }
     /* p tag  */
     p, #reset {
-      font-size: 4rem;
+      font-size: 3rem;
       font-weight: 200;
       font-style: italic;
       color: rgb(0, 0, 0);
-      padding: 15px;
+      padding: 10px;
       border: 0.4rem solid #fff;
       border-radius: 3rem;
       text-transform: uppercase;
