@@ -1,5 +1,5 @@
 /*----- app's state (variables) -----*/
-let turn, winner, board;
+let turn, winner, board, stillPlaying;
 /*----- cached element references -----*/
 let grid = document.querySelector('.grid-container');
 let playAgain = document.getElementById('reset');
@@ -29,6 +29,8 @@ function init() {
     clearBoard();
     //remove X's and O's from display
     clearGUIBoard();
+    //set playing to true
+    stillPlaying = 0;
 }
 
 function clearGUIBoard() {
@@ -56,6 +58,7 @@ function handleClick(evt) {
     if (evt.target.tagName !== 'DIV' || !!evt.target.innerHTML) {
         return;
     }
+
     let evtId = evt.target.id;
     let column = evtId[3];
     let row = evtId[1];
@@ -65,9 +68,11 @@ function handleClick(evt) {
             if (winner || board[row][column]) {
                 return;
             }
-            e.innerHTML = convertToChar(turn);
+
+            e.innerHTML = `<p>${convertToChar(turn)}</p>`;
             board[row][column] = turn;
             console.log(board[row][column]);
+            stillPlaying++
             gameLogic();
             render()
         }
@@ -101,10 +106,18 @@ function gameLogic() {
         for (let row = 0; row < 3; row++) {
             verticalCount += board[row][col];
             horizontalCount += board[col][row];
+
             if (Math.abs(verticalCount) === 3 || Math.abs(horizontalCount) === 3 || Math.abs(diagnalCountRightLeft) === 3 || Math.abs(diagnalCountLeftRight) === 3) {
                 winner = turn;
                 console.log(winner, 'winner');
+
                 return;
+            } else {
+
+                if (!winner && stillPlaying === 9) {
+
+                    title.innerText = "ITS A TIE!"
+                }
             }
         }
 
